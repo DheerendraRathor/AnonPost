@@ -1,0 +1,9 @@
+IS_TEST = False
+
+#database settings
+DB_ENGINE = 'django.db.backends.postgresql_psycopg2'
+DB_NAME = 'anon_cms'
+DB_USER = 'anon_cms'
+DB_PASSWORD = 'anon_cms'
+DB_HOST = '127.0.0.1'
+DB_PORT = '5432'

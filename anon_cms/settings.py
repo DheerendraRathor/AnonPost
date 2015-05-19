@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import settings_user as config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,6 +28,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#cache location Memcached
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
 
 # Application definition
 
@@ -55,7 +63,9 @@ ROOT_URLCONF = 'anon_cms.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'anon_cms/templates/'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.static',
             ],
         },
     },
@@ -74,12 +85,32 @@ WSGI_APPLICATION = 'anon_cms.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# if running on test-server then sqlite can be used
+# Prefer to run on postgresql 
+if config.IS_TEST:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'iitbcn.db',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': config.DB_ENGINE,
+            'NAME': config.DB_NAME,
+            'USER': config.DB_USER,
+            'PASSWORD': config.DB_PASSWORD,
+            'HOST': config.DB_HOST,
+            'PORT': config.DB_PORT,
+        }
+    }
+
+ADMINS = (
+    ('Dheerendra Rathor', 'dheeru.rathor14@gmail.com'),
+    )
+
+MANAGERS = ADMINS
 
 
 # Internationalization
@@ -99,4 +130,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'anon_cms/staticfiles/')
+
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'anon_cms/media/')
+
+MEDIA_URL = '/media/'
+
+
+STATICFILES_DIRS = (
+    # Add all static files here. use os.path.join(BASE_DIR, 'your/staticfile/path')
+    os.path.join(BASE_DIR, 'anon_cms/static/'),
+    )
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
