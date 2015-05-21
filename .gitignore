@@ -3,3 +3,6 @@
 anon_cms/settings_user.py
 local.db
 staticfiles
+
+#Pycharm files
+.idea
