@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import settings_user as config
+import ldap
+from django_auth_ldap.config import LDAPSearch
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -28,13 +30,31 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-#cache location Memcached
+# cache location Memcached
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+
+# Authentication Backends
+AUTHENTICATION_BACKENDS = (
+    'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# LDAP Server URI
+# http://pythonhosted.org/django-auth-ldap/authentication.html#server-config
+AUTH_LDAP_SERVER_URI = "ldap://ldap.iitb.ac.in"
+
+AUTH_LDAP_BIND_DN = ""
+AUTH_LDAP_BIND_PASSWORD = ""
+AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=iitb,dc=ac,dc=in",
+    ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
+
+AUTH_LDAP_USER_ATTR_MAP = {"first_name": "givenName", "last_name": "sn"}
 
 # Application definition
 
@@ -45,6 +65,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'stronghold',
+    'login',
+    'complaint',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,6 +79,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'stronghold.middleware.LoginRequiredMiddleware',
 )
 
 ROOT_URLCONF = 'anon_cms.urls'
@@ -65,6 +89,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'anon_cms/templates/'),
+            os.path.join(BASE_DIR, 'login/templates/'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -138,6 +163,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'anon_cms/media/')
 
 MEDIA_URL = '/media/'
 
+LOGIN_URL = '/login/'
+
 
 STATICFILES_DIRS = (
     # Add all static files here. use os.path.join(BASE_DIR, 'your/staticfile/path')
@@ -152,4 +179,10 @@ STATICFILES_FINDERS = (
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+)
+
+
+# Stronghold Configuration
+STRONGHOLD_PUBLIC_URLS = (
+    r'^/superuser.*?$',
 )
