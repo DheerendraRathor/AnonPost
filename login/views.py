@@ -9,6 +9,8 @@ from django.conf import settings
 
 @public
 def login(request):
+    if request.user.is_authenticated():
+        return redirect(settings.LOGIN_REDIRECT_URL)
     form = LoginForm(request.POST or None)
     if form.is_valid():
         username = form.cleaned_data['username']
@@ -24,7 +26,10 @@ def login(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect('/')
+            if request.POST.get('next') != '' and request.POST.get('next') is not None:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect(settings.LOGIN_REDIRECT_URL)
         else:
             form.add_error(None, "Unable to authorize user. Try again!")
     return render(request, 'login.html', {'form': form})
@@ -33,5 +38,5 @@ def login(request):
 @public
 def logout(request):
     user = request.user
-    auth.logout(request, user)
-    redirect(settings.LOGIN_URL)
+    auth.logout(request)
+    return redirect(settings.LOGIN_URL)
