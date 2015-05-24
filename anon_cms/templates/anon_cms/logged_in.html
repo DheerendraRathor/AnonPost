@@ -1,0 +1,6 @@
+{% extends 'anon_cms/root.html' %}
+
+{% block navbar_right_link %}
+    <li><strong>{{ request.user.first_name }}</strong></li>
+    <li><a href="/logout">Logout</a></li>
+{% endblock %}

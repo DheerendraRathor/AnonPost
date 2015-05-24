@@ -18,10 +18,12 @@ from django.contrib import admin
 import login.urls
 from login import views as login_views
 import views
+import complaint.urls
 
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^superuser/', include(admin.site.urls)),
     url(r'^login/', include(login.urls)),
     url(r'^logout/', login_views.logout),
+    url(r'^home/', include(complaint.urls)),
 ]

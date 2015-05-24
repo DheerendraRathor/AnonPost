@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'stronghold',
     'login',
     'complaint',
@@ -90,6 +91,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(BASE_DIR, 'anon_cms/templates/'),
             os.path.join(BASE_DIR, 'login/templates/'),
+            os.path.join(BASE_DIR, 'complaint/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
