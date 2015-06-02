@@ -54,7 +54,11 @@ AUTH_LDAP_BIND_PASSWORD = ""
 AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=iitb,dc=ac,dc=in",
     ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
 
-AUTH_LDAP_USER_ATTR_MAP = {"first_name": "givenName", "last_name": "sn"}
+AUTH_LDAP_USER_ATTR_MAP = {
+    "first_name": "givenName", 
+    "last_name": "sn",
+    "email": 'mail',
+}
 
 # Application definition
 

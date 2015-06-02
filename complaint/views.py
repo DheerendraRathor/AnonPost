@@ -4,7 +4,9 @@ from models import Complaint, Reply
 from django.core.serializers.json import DjangoJSONEncoder
 import json
 from django.http import HttpResponse
-from serializers import ComplaintSerializer, ReplySerializers
+from serializers import ComplaintSerializer, ReplySerializer
+from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
 
 @require_safe
 def index(request):
@@ -37,6 +39,7 @@ def get_complaints(request):
     user = request.user
     complaint = Complaint.objects.all().filter(user=user)
     complaint_data = ComplaintSerializer(complaint, many=True).data
-    return HttpResponse(complaint_data, content_type='application/json')
+    complaint_data_json = JSONRenderer().render(complaint_data)
+    return HttpResponse(complaint_data_json, content_type='application/json')
 
 
