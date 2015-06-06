@@ -30,6 +30,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ADMIN_USERNAMES = [
+    "dean.sa",
+]
+
 # cache location Memcached
 CACHES = {
     'default': {

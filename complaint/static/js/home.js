@@ -1,24 +1,10 @@
-if (!String.prototype.format) {
-    String.prototype.format = function () {
-        var args = arguments;
-        return this.replace(/{(\d+)}/g, function (match, number) {
-            return typeof args[number] != 'undefined'
-                ? args[number]
-                : match
-                ;
-        });
-    };
-}
+var complaints_to_render = [];
 
 function fetchComplaints() {
     $.get('/home/get_complaints/', {}, function (data) {
-        $("#complaint_list").html("");
-        var complaint_display = $("#complaintTemplate").html();
+        complaints_to_render = data;
+        renderComplaints();
 
-        $.each(data, function (index, complaint) {
-            var complaint_body = complaint_display.format(complaint.id, complaint.title, complaint.message, complaint.reply_count);
-            $("#complaint_list").append(complaint_body);
-        });
     }, "json")
         .fail(function () {
             $("#error-alert-content").html("Unable to fetch complaints");
@@ -26,7 +12,18 @@ function fetchComplaints() {
         });
 };
 
+function renderComplaints() {
+    $("#complaint_list").html("");
+    var complaint_display = $("#complaintTemplate").html();
+
+    $.each(complaints_to_render, function (index, complaint) {
+        var complaint_body = complaint_display.format(complaint.id, complaint.title, complaint.message, complaint.reply_count);
+        $("#complaint_list").append(complaint_body);
+    });
+};
+
 fetchComplaints();
+
 
 $("#add_complaint").submit(function (e) {
     e.preventDefault();
@@ -40,12 +37,23 @@ $("#add_complaint").submit(function (e) {
         type: 'POST',
         dataType: 'json',
         success: function (data) {
-            fetchComplaints();
+            complaints_to_render.unshift(data);
+            renderComplaints();
             $("#add_complaint")[0].reset();
         },
         error: function (data) {
-            $("#error-alert-content").html(data.responseText);
+            data = JSON.parse(data.responseText);
+            var html = "";
+            $.each(data, function (key, value) {
+                html += "<ul><b>{0}</b><ul>".format(key);
+                $.each(value, function (index, val) {
+                    html += "<li>{0}</li>".format(val.message);
+                })
+                html += "</ul></ul>";
+            })
+            $("#error-alert-content").html(html);
             $("#error-alert").show();
+
         }
     });
 });

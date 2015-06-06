@@ -1,0 +1,61 @@
+{% extends 'anon_cms/logged_in.html' %}
+{% load static %}
+
+{% block cssLinks %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/complaint.css' %}"/>
+{% endblock%}
+
+{% block body %}
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                {{ complaint.title }}
+            </div>
+            <div class="panel-body">
+                {{ complaint.message }}
+
+            </div>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Replies
+            </div>
+            <div id="reply-body" class="panel-body">
+                <div class="panel panel-default" id="reply-content">
+
+                </div>
+
+            </div>
+            <div class="panel-body">
+                <form id="reply-form" role="form">
+                    <div class="form-group">
+                        <label for="reply-textarea" class="sr-only">Reply:</label>
+                        <textarea class="form-control" rows="3" id="reply-textarea" name="reply"
+                                  placeholder="Add Reply"></textarea>
+                    </div>
+                    <input class="btn btn-primary" type="submit" value="App Reply"/>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="hide" id="replyTemplate">
+        <div class="panel-heading" id="reply{0}">
+            <div class="row">
+                <div class="col-lg-1-point-5">
+                    <b>{2}:</b>
+                </div>
+                <div class="col-lg-10-point-5">
+                    {1}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block jsLinks %}
+    <script type="text/javascript">
+        var complaint_id = {{ complaint.id }};
+    </script>
+    <script type="text/javascript" src="{% static 'js/complaint.js' %}"></script>
+{% endblock %}

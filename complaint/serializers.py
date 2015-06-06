@@ -2,6 +2,7 @@ __author__ = 'dheerendra'
 
 from rest_framework import serializers
 from models import Complaint, Reply
+from django.conf import settings
 
 class ReplySerializer(serializers.ModelSerializer):
 
@@ -9,7 +10,7 @@ class ReplySerializer(serializers.ModelSerializer):
 
     def get_user_type(self, reply):
         username = reply.user.username
-        if (username == "dean.sa"):
+        if username in settings.ADMIN_USERNAMES:
             return 'A'
             # Admin User
         else:

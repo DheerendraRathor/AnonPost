@@ -1,0 +1,18 @@
+@media (min-width: 1200px) {
+    .col-lg-1-point-5 {
+        width: 10%;
+        float: left;
+    }
+
+    .col-lg-10-point-5 {
+        width: 90%;
+        float: left;
+    }
+
+    .col-lg-1-point-5, .col-lg-10-point-5 {
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}

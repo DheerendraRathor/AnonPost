@@ -19,6 +19,7 @@ import login.urls
 from login import views as login_views
 import views
 import complaint.urls
+from complaint import views as complaint_views
 
 urlpatterns = [
     url(r'^$', views.index),
@@ -26,4 +27,5 @@ urlpatterns = [
     url(r'^login/', include(login.urls)),
     url(r'^logout/', login_views.logout),
     url(r'^home/', include(complaint.urls)),
+    url(r'^complaint/(?P<complaint_id>[0-9]+)/$', complaint_views.get_complaint),
 ]
