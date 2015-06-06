@@ -23,9 +23,8 @@ class ReplySerializer(serializers.ModelSerializer):
 
 class ComplaintSerializer(serializers.ModelSerializer):
 
-    replies = ReplySerializer(many=True, read_only=True)
+    reply_count = serializers.IntegerField(source='replies.count')
 
     class Meta:
         model = Complaint
-        fields = ('id', 'title', 'message', 'replies')
-        depth = 1
+        fields = ('id', 'title', 'message', 'reply_count')
