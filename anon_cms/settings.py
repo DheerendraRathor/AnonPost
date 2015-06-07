@@ -30,9 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-ADMIN_USERNAMES = [
-    "dean.sa",
-]
+ADMIN_USERNAMES = config.ADMIN_USERNAMES
 
 # cache location Memcached
 CACHES = {
@@ -109,6 +107,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.static',
+                'anon_cms.context.admin_usernames',
             ],
         },
     },

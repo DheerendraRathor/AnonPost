@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST, require_GET, require_safe
 from models import Complaint, Reply
 from django.core.serializers.json import DjangoJSONEncoder
@@ -73,6 +73,22 @@ def get_replies(request, complaint_id):
     replies = Reply.objects.all().filter(complaint=complaint)
     replies_data_json = JSONRenderer().render(ReplySerializer(replies, many=True).data)
     return HttpResponse(replies_data_json, content_type='application/json')
+
+@require_GET
+def get_all_complaints(request, offset):
+    if request.user.username not in settings.ADMIN_USERNAMES:
+        return HttpResponseForbidden()
+    offset = int(offset)
+    limit = offset + 10
+    complaints = Complaint.objects.all().order_by('-date')[offset:limit]
+    complaints_json = JSONRenderer().render(ComplaintSerializer(complaints, many=True).data)
+    return HttpResponse(complaints_json, content_type='application/json')
+
+@require_GET
+def admin_page(request):
+    if request.user.username not in settings.ADMIN_USERNAMES:
+        return redirect('/')
+    return render(request, 'admin.html')
 
 def has_complaint_permission(complaint, user):
     if user != complaint.user and user.username not in settings.ADMIN_USERNAMES:

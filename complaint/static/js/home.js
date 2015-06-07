@@ -57,8 +57,3 @@ $("#add_complaint").submit(function (e) {
         }
     });
 });
-
-$("#error-alert").on("close.bs.alert", function (e) {
-    e.preventDefault();
-    $(this).hide();
-});

@@ -13,3 +13,9 @@ if (!String.prototype.format) {
         });
     };
 }
+
+
+$("#error-alert").on("close.bs.alert", function (e) {
+    e.preventDefault();
+    $(this).hide();
+});

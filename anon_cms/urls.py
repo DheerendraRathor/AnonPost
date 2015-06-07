@@ -23,7 +23,7 @@ from complaint import views as complaint_views
 
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^superuser/', include(admin.site.urls)),
+    url(r'^admin/$', complaint_views.admin_page),
     url(r'^login/', include(login.urls)),
     url(r'^logout/', login_views.logout),
     url(r'^home/', include(complaint.urls)),

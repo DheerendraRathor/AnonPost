@@ -3,11 +3,16 @@
 
 {% block cssLinks %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/complaint.css' %}"/>
-{% endblock%}
+{% endblock %}
 
 {% block body %}
     <div class="col-md-12">
+
+            <h4>Complaint ID: {{ complaint.id }}</h4>
+
+
         <div class="panel panel-primary">
+
             <div class="panel-heading">
                 {{ complaint.title }}
             </div>

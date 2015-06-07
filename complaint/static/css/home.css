@@ -1,3 +1,8 @@
 .panel-accordion {
-	cursor: pointer;
+    cursor: pointer;
+}
+
+.reply-count-text {
+    color: darkcyan;
+    font-style: oblique;
 }

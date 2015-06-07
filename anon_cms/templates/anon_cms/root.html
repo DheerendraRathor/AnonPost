@@ -36,6 +36,8 @@
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
+                {% block navbar_left_link %}
+                {% endblock %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% block navbar_right_link %}
