@@ -32,4 +32,4 @@ You can look into [VirtualenvWrapper](https://virtualenvwrapper.readthedocs.org/
 ##TODO:
 * Writing installation instruction for Debian Linux based OS
 * Adding file support in complaint registration
-* Creating interface for Administrator
+* ~~Creating interface for Administrator~~
