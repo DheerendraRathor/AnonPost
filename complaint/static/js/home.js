@@ -1,7 +1,10 @@
 var complaints_to_render = [];
+var get_posts_url;
+var add_post_url;
+var post_url;
 
 function fetchComplaints() {
-    $.get('/home/get_complaints/', {}, function (data) {
+    $.get(get_posts_url, {}, function (data) {
         complaints_to_render = data;
         renderComplaints();
 
@@ -10,17 +13,17 @@ function fetchComplaints() {
             $("#error-alert-content").html("Unable to fetch complaints");
             $("#error-alert").show();
         });
-};
+}
 
 function renderComplaints() {
     $("#complaint_list").html("");
     var complaint_display = $("#complaintTemplate").html();
 
     $.each(complaints_to_render, function (index, complaint) {
-        var complaint_body = complaint_display.format(complaint.id, complaint.title, complaint.message, complaint.reply_count);
+        var complaint_body = complaint_display.format(complaint.id, complaint.title, complaint.message, complaint.reply_count, post_url.format(complaint.id));
         $("#complaint_list").append(complaint_body);
     });
-};
+}
 
 fetchComplaints();
 
@@ -28,11 +31,11 @@ fetchComplaints();
 $("#add_complaint").submit(function (e) {
     e.preventDefault();
     $.ajax({
-        url: '/home/add_complaint/',
+        url: add_post_url,
         data: {
             'title': $("#subject").val(),
             'message': $("#detail").val(),
-            'csrfmiddlewaretoken': Cookies.get('csrftoken'),
+            'csrfmiddlewaretoken': Cookies.get('csrftoken')
         },
         type: 'POST',
         dataType: 'json',
@@ -48,9 +51,9 @@ $("#add_complaint").submit(function (e) {
                 html += "<ul><b>{0}</b><ul>".format(key);
                 $.each(value, function (index, val) {
                     html += "<li>{0}</li>".format(val.message);
-                })
+                });
                 html += "</ul></ul>";
-            })
+            });
             $("#error-alert-content").html(html);
             $("#error-alert").show();
 

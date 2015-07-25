@@ -60,7 +60,8 @@
 
 {% block jsLinks %}
     <script type="text/javascript">
-        var complaint_id = {{ complaint.id }};
+        var get_replies_url = "{% url 'home:get_replies' complaint.id %}";
+        var add_reply_url = "{% url 'home:add_reply' complaint.id %}";
     </script>
     <script type="text/javascript" src="{% static 'js/complaint.js' %}"></script>
 {% endblock %}

@@ -1,7 +1,7 @@
 *.pyc
 *.~
 anon_cms/settings_user.py
-local.db
+*.db
 staticfiles
 
 #Pycharm files

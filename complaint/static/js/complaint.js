@@ -3,9 +3,12 @@
  */
 
 var replies_to_render = [];
+var get_replies_url;
+var add_reply_url;
+
 
 function fetchReplies() {
-    $.get('/home/get_replies/{0}/'.format(complaint_id), {}, function (data) {
+    $.get(get_replies_url, {}, function (data) {
         replies_to_render = data;
         renderReplies();
 
@@ -36,7 +39,7 @@ function renderReplies() {
 $("#reply-form").submit(function(e){
     e.preventDefault();
     $.ajax({
-        url : '/home/add_reply/{0}/'.format(complaint_id),
+        url : add_reply_url,
         dataType: 'json',
         type: 'POST',
         data: {

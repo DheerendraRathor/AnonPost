@@ -27,7 +27,7 @@
             <div class="panel-heading">
                 <div class="row">
                     <div class="col-md-1 col-lg-push-11">
-                        <a href="/complaint/{0}" target="_blank">
+                        <a href="{4}" target="_blank">
                             <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>
                         </a>
 
@@ -55,6 +55,8 @@
 {% block jsLinks %}
     <script type="text/javascript">
         var currentOffset = 0;
+        var get_all_complaints = "{% url 'home:get_all_posts_0' %}" + "{0}/";
+        var post_url = "{% url 'home:post' "0" %}".replace("/0/", "/{0}/");
     </script>
     <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
 {% endblock %}

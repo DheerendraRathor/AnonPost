@@ -1,20 +1,20 @@
+import cgi
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST, require_GET, require_safe
-from models import Complaint, Reply
-from django.core.serializers.json import DjangoJSONEncoder
-import json
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
-from serializers import ComplaintSerializer, ReplySerializer
-from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
-from forms import ComplaintForm, ReplyForm
 from django.conf import settings
 
-import cgi
+from models import Complaint, Reply
+from serializers import ComplaintSerializer, ReplySerializer
+from forms import ComplaintForm, ReplyForm
+
 
 @require_safe
 def index(request):
     return render(request, 'home.html')
+
 
 @require_POST
 def add_complaint(request):
@@ -30,13 +30,14 @@ def add_complaint(request):
     complaint_data_json = JSONRenderer().render(complaint_data)
     return HttpResponse(complaint_data_json, content_type='application/json')
 
+
 @require_POST
-def add_reply(request, id):
+def add_reply(request, id_):
     form = ReplyForm(request.POST)
     if not form.is_valid():
         return HttpResponseBadRequest(form.errors.as_json(), content_type='application/json')
     user = request.user
-    complaint = get_object_or_404(Complaint, pk=id)
+    complaint = get_object_or_404(Complaint, pk=id_)
     if not has_complaint_permission(complaint, user):
         return HttpResponseForbidden()
     message = cgi.escape(form.cleaned_data['message'])
@@ -48,6 +49,7 @@ def add_reply(request, id):
     reply_data_json = JSONRenderer().render(reply_data)
     return HttpResponse(reply_data_json, content_type='application/json')
 
+
 @require_safe
 def get_complaints(request):
     user = request.user
@@ -56,13 +58,15 @@ def get_complaints(request):
     complaint_data_json = JSONRenderer().render(complaint_data)
     return HttpResponse(complaint_data_json, content_type='application/json')
 
+
 @require_safe
 def get_complaint(request, complaint_id):
     user = request.user
     complaint = get_object_or_404(Complaint, pk=complaint_id)
     if not has_complaint_permission(complaint, user):
         return HttpResponseForbidden()
-    return render(request, 'complaint.html', {'complaint' : complaint})
+    return render(request, 'complaint.html', {'complaint': complaint})
+
 
 @require_safe
 def get_replies(request, complaint_id):
@@ -74,8 +78,9 @@ def get_replies(request, complaint_id):
     replies_data_json = JSONRenderer().render(ReplySerializer(replies, many=True).data)
     return HttpResponse(replies_data_json, content_type='application/json')
 
+
 @require_GET
-def get_all_complaints(request, offset):
+def get_all_complaints(request, offset = 0):
     if request.user.username not in settings.ADMIN_USERNAMES:
         return HttpResponseForbidden()
     offset = int(offset)
@@ -84,11 +89,13 @@ def get_all_complaints(request, offset):
     complaints_json = JSONRenderer().render(ComplaintSerializer(complaints, many=True).data)
     return HttpResponse(complaints_json, content_type='application/json')
 
+
 @require_GET
 def admin_page(request):
     if request.user.username not in settings.ADMIN_USERNAMES:
         return redirect('/')
     return render(request, 'admin.html')
+
 
 def has_complaint_permission(complaint, user):
     if user != complaint.user and user.username not in settings.ADMIN_USERNAMES:

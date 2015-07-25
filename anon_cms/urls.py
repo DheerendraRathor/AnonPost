@@ -13,19 +13,14 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include, url, patterns
-from django.contrib import admin
-import login.urls
-from login import views as login_views
+from django.conf.urls import include, url
+import account.urls
 import views
 import complaint.urls
-from complaint import views as complaint_views
 
 urlpatterns = [
-    url(r'^$', views.index),
-    url(r'^admin/$', complaint_views.admin_page),
-    url(r'^login/', include(login.urls)),
-    url(r'^logout/', login_views.logout),
-    url(r'^home/', include(complaint.urls)),
-    url(r'^complaint/(?P<complaint_id>[0-9]+)/$', complaint_views.get_complaint),
+    url(r'^$', views.index, name='index'),
+    url(r'^about/$', views.about, name='about'),
+    url(r'^account/', include(account.urls, namespace='account')),
+    url(r'^home/', include(complaint.urls, namespace='home')),
 ]

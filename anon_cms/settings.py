@@ -73,7 +73,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'stronghold',
-    'login',
+    'account',
     'complaint',
 )
 
@@ -96,7 +96,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'anon_cms/templates/'),
-            os.path.join(BASE_DIR, 'login/templates/'),
+            os.path.join(BASE_DIR, 'account/templates/'),
             os.path.join(BASE_DIR, 'complaint/templates'),
         ],
         'APP_DIRS': True,
@@ -152,7 +152,7 @@ MANAGERS = ADMINS
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -172,9 +172,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'anon_cms/media/')
 
 MEDIA_URL = '/media/'
 
-LOGIN_URL = '/login/'
+LOGIN_URL = 'account:login'
 
-LOGIN_REDIRECT_URL = '/home/'
+LOGIN_REDIRECT_URL = 'home:index'
 
 
 STATICFILES_DIRS = (

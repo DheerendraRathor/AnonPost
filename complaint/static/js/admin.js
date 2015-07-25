@@ -3,10 +3,12 @@
  */
 
 var complaints_to_render = [];
+var get_all_complaints;
+var post_url;
 
 function fetchComplaints() {
     $.ajax({
-        url: '/home/get_all_complaints/{0}'.format(currentOffset),
+        url: get_all_complaints.format(currentOffset),
         dataType: 'json',
         type: 'GET',
         async: false,
@@ -26,7 +28,7 @@ function renderComplaints() {
     var complaint_display = $("#complaintTemplate").html();
 
     $.each(complaints_to_render, function (index, complaint) {
-        var complaint_body = complaint_display.format(complaint.id, complaint.title, complaint.message, complaint.reply_count);
+        var complaint_body = complaint_display.format(complaint.id, complaint.title, complaint.message, complaint.reply_count, post_url.format(complaint.id));
         $("#complaint_list").append(complaint_body);
     });
 };

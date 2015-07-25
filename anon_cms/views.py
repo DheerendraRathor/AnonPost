@@ -3,6 +3,7 @@ __author__ = 'dheerendra'
 from django.conf import settings
 from django.shortcuts import redirect
 from stronghold.decorators import public
+from django.http import HttpResponse
 
 @public
 def index(request):
@@ -10,3 +11,7 @@ def index(request):
         return redirect(settings.LOGIN_REDIRECT_URL)
     else:
         return redirect(settings.LOGIN_URL)
+
+@public
+def about(request):
+    return HttpResponse('No content')
