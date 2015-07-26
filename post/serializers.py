@@ -1,8 +1,9 @@
 __author__ = 'dheerendra'
 
 from rest_framework import serializers
-from models import Complaint, Reply
+from models import Post, Reply
 from django.conf import settings
+
 
 class ReplySerializer(serializers.ModelSerializer):
 
@@ -22,10 +23,10 @@ class ReplySerializer(serializers.ModelSerializer):
         fields = ('id', 'message', 'user_type')
 
 
-class ComplaintSerializer(serializers.ModelSerializer):
+class PostSerializer(serializers.ModelSerializer):
 
     reply_count = serializers.IntegerField(source='replies.count')
 
     class Meta:
-        model = Complaint
+        model = Post
         fields = ('id', 'title', 'message', 'reply_count')

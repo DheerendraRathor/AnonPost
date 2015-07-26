@@ -16,11 +16,11 @@ Including another URLconf
 from django.conf.urls import include, url
 import account.urls
 import views
-import complaint.urls
+import post.urls
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^about/$', views.about, name='about'),
     url(r'^account/', include(account.urls, namespace='account')),
-    url(r'^home/', include(complaint.urls, namespace='home')),
+    url(r'^home/', include(post.urls, namespace='home')),
 ]

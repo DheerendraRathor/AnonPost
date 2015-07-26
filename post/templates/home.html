@@ -7,22 +7,34 @@
 
 {% block body %}
     <div class="row">
+        <div class="col-lg-4 col-lg-push-8">
+            <form id="add_post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="subject" class="sr-only">Title</label>
+                    <input type="subject" class="form-control" id="subject" name="title" placeholder="Enter Title">
+                </div>
+                <div class="form-group">
+                    <label for="detail" class="sr-only">Message</label>
+                    <textarea style="resize: vertical" class="form-control" rows="10" id="detail" name="message"
+                              placeholder="Enter Message"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="submit" class="sr-only" >Submit</label>
+                    <input type="submit" class="btn btn-primary"/>
+                </div>
+            </form>
 
-        <div class="col-lg-12">
-            <div class="panel-group" id="complaint_list" role="tablist" aria-multiselectable="true">
+        </div>
+        <div class="col-lg-8 col-lg-pull-4">
+            <div class="panel-group" id="post_list" role="tablist" aria-multiselectable="true">
 
             </div>
-            <nav>
-                <ul class="pager">
-                    <li class="previous disabled" id="previous-page"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
-                    <li class="next" id="next-page"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
-                </ul>
-            </nav>
 
         </div>
     </div>
 
-    <div class="hide" id="complaintTemplate">
+    <div class="hide" id="postTemplate">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
@@ -35,7 +47,7 @@
                     <div class="col-md-11 col-lg-pull-1">
 
                         <h4 class="panel-title panel-accordion" role="tab" id="headingOne" data-toggle="collapse"
-                            data-parent="#complaint_list" href="#collapse{0}">
+                            data-parent="#post_list" href="#collapse{0}">
                             <span class="label label-info">#{0}</span>&nbsp;&nbsp;&nbsp;{1}
                             <text class="reply-count-text pull-right">Replies: <b>{3}</b>
                             </text>
@@ -54,9 +66,10 @@
 
 {% block jsLinks %}
     <script type="text/javascript">
-        var currentOffset = 0;
-        var get_all_complaints = "{% url 'home:get_all_posts_0' %}" + "{0}/";
-        var post_url = "{% url 'home:post' "0" %}".replace("/0/", "/{0}/");
+        var get_posts_url = "{% url 'home:get_posts' %}";
+        var add_post_url = "{% url 'home:add_post' %}";
+        var post_url = "{% url 'home:post' "0" %}";
+        post_url = post_url.replace("/0/", "/{0}/");
     </script>
-    <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/home.js' %}"></script>
 {% endblock %}

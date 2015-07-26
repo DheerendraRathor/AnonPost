@@ -1,13 +1,15 @@
 __author__ = 'dheerendra'
 
 from django import forms
-from models import Complaint, Reply
+from models import Post, Reply
 
-class ComplaintForm(forms.ModelForm):
+
+class PostForm(forms.ModelForm):
 
     class Meta:
-        model = Complaint
+        model = Post
         fields = ['title', 'message']
+
 
 class ReplyForm(forms.ModelForm):
     class Meta:

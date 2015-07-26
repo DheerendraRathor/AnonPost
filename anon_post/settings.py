@@ -74,7 +74,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'stronghold',
     'account',
-    'complaint',
+    'post',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -89,15 +89,15 @@ MIDDLEWARE_CLASSES = (
     'stronghold.middleware.LoginRequiredMiddleware',
 )
 
-ROOT_URLCONF = 'anon_cms.urls'
+ROOT_URLCONF = 'anon_post.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'anon_cms/templates/'),
+            os.path.join(BASE_DIR, 'anon_post/templates/'),
             os.path.join(BASE_DIR, 'account/templates/'),
-            os.path.join(BASE_DIR, 'complaint/templates'),
+            os.path.join(BASE_DIR, 'post/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -107,13 +107,13 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.static',
-                'anon_cms.context.admin_usernames',
+                'anon_post.context.admin_usernames',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'anon_cms.wsgi.application'
+WSGI_APPLICATION = 'anon_post.wsgi.application'
 
 
 # Database
@@ -125,7 +125,7 @@ if config.IS_TEST:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'iitbcn.db',
+            'NAME': 'anon_post.db',
         }
     }
 else:
@@ -164,11 +164,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'anon_cms/staticfiles/')
+STATIC_ROOT = os.path.join(BASE_DIR, 'anon_post/staticfiles/')
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'anon_cms/media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'anon_post/media/')
 
 MEDIA_URL = '/media/'
 
@@ -179,7 +179,7 @@ LOGIN_REDIRECT_URL = 'home:index'
 
 STATICFILES_DIRS = (
     # Add all static files here. use os.path.join(BASE_DIR, 'your/staticfile/path')
-    os.path.join(BASE_DIR, 'anon_cms/static/'),
+    os.path.join(BASE_DIR, 'anon_post/static/'),
     )
 
 STATICFILES_FINDERS = (

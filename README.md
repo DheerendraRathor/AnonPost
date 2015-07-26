@@ -3,10 +3,10 @@
 This is a anonymous comlaint management system with LDAP authentication backend. 
 
 ##Features
-* To register complaints anonymously*
-* To discuss on complaint/issue with Administrators anonymously
+* To register posts anonymously*
+* To discuss on post/issue with Administrators anonymously
 
-*Note: The anonymity is for Administrators only i.e. Administrators cannot see who have registered the complaint, but the user details are saved in database so that misuse can be prevented
+*Note: The anonymity is for Administrators only i.e. Administrators cannot see who have registered the post, but the user details are saved in database so that misuse can be prevented
 
 ##Installation
 ###OS X
@@ -31,5 +31,5 @@ You can look into [VirtualenvWrapper](https://virtualenvwrapper.readthedocs.org/
 
 ##TODO:
 * Writing installation instruction for Debian Linux based OS
-* Adding file support in complaint registration
+* Adding file support in post registration
 * ~~Creating interface for Administrator~~
