@@ -1,6 +1,6 @@
-# Anon_CMS
+# Anon Post
 
-This is a anonymous comlaint management system with LDAP authentication backend. 
+This is a anonymous post management system with LDAP authentication backend. 
 
 ##Features
 * To register posts anonymously*
@@ -23,7 +23,7 @@ Note: One can work on other databases system like MySQL but using postgresql is 
 You can setup project in normal way but it is recommonded to setup project in a virtual environment to keep things neat and clean.
 You can look into [VirtualenvWrapper](https://virtualenvwrapper.readthedocs.org/en/latest/index.html) for this purpose
 * Install all dependencies by `pip install -r requirements.txt` (Run this command from project root)
-* Go to anon_cms directory 
+* Go to anon_post directory 
 * Copy `settings_user.py.sample` to `settings_user.py`
 * Edit essential parameters like `DB_NAME`, `DB_USER`, `DB_PASSWORRD` etc to your database configuration
 * Go to project root and run `python manage.py migrate`
