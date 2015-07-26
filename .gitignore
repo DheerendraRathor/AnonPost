@@ -1,8 +1,9 @@
 *.pyc
 *.~
-anon_cms/settings_user.py
+anon_post/settings_user.py
 *.db
 staticfiles
+anon_post/media
 
 #Pycharm files
 .idea
