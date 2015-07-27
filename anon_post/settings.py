@@ -166,11 +166,7 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'anon_post/staticfiles/')
 
-STATIC_URL = '/static/'
-
 MEDIA_ROOT = os.path.join(BASE_DIR, 'anon_post/media/')
-
-MEDIA_URL = '/media/'
 
 LOGIN_URL = 'account:login'
 
@@ -197,3 +193,11 @@ TEMPLATE_LOADERS = (
 STRONGHOLD_PUBLIC_URLS = (
     r'^/superuser.*?$',
 )
+
+STATIC_URL = config.STATIC_URL
+
+MEDIA_URL = config.MEDIA_URL
+
+SESSION_COOKIE_PATH = config.SESSION_COOKIE_PATH
+
+CSRF_COOKIE_PATH = config.CSRF_COOKIE_PATH

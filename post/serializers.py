@@ -10,13 +10,11 @@ class ReplySerializer(serializers.ModelSerializer):
     user_type = serializers.SerializerMethodField()
 
     def get_user_type(self, reply):
-        username = reply.user.username
-        if username in settings.ADMIN_USERNAMES:
-            return 'A'
-            # Admin User
-        else:
+        original_poster = reply.post.user
+        if reply.user == original_poster:
             return 'N'
-            # Normal User
+        else:
+            return 'A'
 
     class Meta:
         model = Reply
