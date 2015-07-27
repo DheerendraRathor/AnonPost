@@ -2,13 +2,21 @@ IS_TEST = False
 
 #database settings
 DB_ENGINE = 'django.db.backends.postgresql_psycopg2'
-DB_NAME = 'anon_cms'
-DB_USER = 'anon_cms'
-DB_PASSWORD = 'anon_cms'
+DB_NAME = 'anon_post'
+DB_USER = 'anon_post'
+DB_PASSWORD = 'anon_post'
 DB_HOST = '127.0.0.1'
 DB_PORT = '5432'
 
 #ADMINS
 # list of admin usernames
 ADMIN_USERNAMES = []
+
+STATIC_URL = "/static/"
+
+MEDIA_URL = "/media/"
+
+SESSION_COOKIE_PATH = "/"
+
+CSRF_COOKIE_PATH = "/"
 

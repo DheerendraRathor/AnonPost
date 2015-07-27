@@ -5,5 +5,8 @@ anon_post/settings_user.py
 staticfiles
 anon_post/media
 
+# logs
+*.log
+
 #Pycharm files
 .idea
