@@ -190,9 +190,7 @@ else:
         }
     }
 
-ADMINS = (
-    ('Dheerendra Rathor', 'dheeru.rathor14@gmail.com'),
-    )
+ADMINS = config.SERVER_ADMINS
 
 MANAGERS = ADMINS
 
@@ -207,7 +205,6 @@ TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 
 USE_L10N = True
-
 USE_TZ = True
 
 
@@ -244,10 +241,31 @@ STRONGHOLD_PUBLIC_URLS = (
     r'^/superuser.*?$',
 )
 
+# Email settings
+EMAIL_HOST = config.EMAIL_HOST
+
+EMAIL_PORT = config.EMAIL_PORT
+
+EMAIL_FROM_USER = config.EMAIL_FROM_USER
+
+EMAIL_HOST_USER = config.EMAIL_HOST_USER
+
+EMAIL_HOST_PASSWORD = config.EMAIL_HOST_PASSWORD
+
+EMAIL_USE_TLS = config.EMAIL_USE_TLS
+
+EMAIL_USE_SSL = config.EMAIL_USE_SSL
+
+EMAIL_DOMAIN = config.EMAIL_DOMAIN
+
+# URL settings
+BASE_URL = config.BASE_URL
+
 STATIC_URL = config.STATIC_URL
 
 MEDIA_URL = config.MEDIA_URL
 
+# Cookie path settings
 SESSION_COOKIE_PATH = config.SESSION_COOKIE_PATH
 
 CSRF_COOKIE_PATH = config.CSRF_COOKIE_PATH
