@@ -1,10 +1,13 @@
 Django==1.8.1
+Pillow==2.8.1
+argparse==1.2.1
 django-auth-ldap==1.2.6
 django-stronghold==0.2.7
 djangorestframework==3.1.2
-Pillow==2.8.1
+gunicorn==19.3.0
 psycopg2==2.6
 python-ldap==2.4.19
 python-memcached==1.54
 six==1.9.0
 wheel==0.24.0
+wsgiref==0.1.2
