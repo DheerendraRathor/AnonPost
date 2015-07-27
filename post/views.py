@@ -93,7 +93,7 @@ def get_all_posts(request, offset = 0):
 @require_GET
 def admin_page(request):
     if request.user.username not in settings.ADMIN_USERNAMES:
-        return redirect('/')
+        return redirect('home:index')
     return render(request, 'admin.html')
 
 
