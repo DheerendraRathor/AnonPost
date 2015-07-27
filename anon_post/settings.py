@@ -239,6 +239,8 @@ TEMPLATE_LOADERS = (
 # Stronghold Configuration
 STRONGHOLD_PUBLIC_URLS = (
     r'^/superuser.*?$',
+    r'^/static.*?$',
+    r'^/media.*?$',
 )
 
 # Email settings
