@@ -53,7 +53,7 @@ def add_reply(request, id_):
 @require_safe
 def get_posts(request):
     user = request.user
-    post = Post.objects.all().filter(user=user)
+    post = Post.objects.all().filter(user=user).order_by('-date')
     post_data = PostSerializer(post, many=True).data
     post_data_json = JSONRenderer().render(post_data)
     return HttpResponse(post_data_json, content_type='application/json')
