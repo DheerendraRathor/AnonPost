@@ -20,5 +20,6 @@ def send_mail(subject, text_msg, to_email_list):
     mail.attach(MIMEText(text_msg, 'plain'))
 
     for to_email in to_email_list:
+        del mail['To']
         mail['To'] = to_email
         server.sendmail(from_email, to_email, mail.as_string())
