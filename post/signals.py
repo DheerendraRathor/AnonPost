@@ -49,10 +49,11 @@ def send_reply_email(sender, instance, created, **kwargs):
     message = """
     A new reply has been added to Anon Post. Open post in browser at %s
 
-    Message: %s
+    Message by %s: %s
     """
+    poster = "Submitter" if instance.post.user == instance.user else "Admin"
     post_url = urlparse.urljoin(settings.BASE_URL, reverse('home:post', args=[instance.post.id]))
-    message = message % (post_url, instance.message)
+    message = message % (post_url, poster, instance.message)
     email_list = create_email_list(instance.post.user.email)
     email_thread = EmailThread(subject, message, email_list)
     email_thread.start()
