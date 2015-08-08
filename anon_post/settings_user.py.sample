@@ -43,3 +43,5 @@ EMAIL_USE_SSL = False
 
 EMAIL_DOMAIN = "@iitb.ac.in"
 
+SECRET_KEY = 'YOUR SECRET KEY'
+
