@@ -7,6 +7,7 @@ from django.views.decorators.http import require_safe
 from oauth.authorization import Authorization
 from oauth.exceptions import OAuthError
 from oauth.models import OAuthToken
+from django.conf import settings
 
 
 @public
@@ -20,7 +21,7 @@ def authorize(request):
     try:
         token = Authorization(request).get_token()
     except OAuthError as e:
-        return render(request, 'login.html', {'error': e.message})
+        return render(request, 'login.html', {'error': e.message, 'client_id': settings.CLIENT_ID})
 
     user, created = User.objects.get_or_create(username=token.refresh_token)
     try:
