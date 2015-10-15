@@ -1,9 +1,7 @@
-__author__ = 'dheerendra'
-
 from django.conf import settings
 from django.shortcuts import redirect
 from stronghold.decorators import public
-from django.http import HttpResponse
+from django.shortcuts import render
 
 @public
 def index(request):
@@ -14,4 +12,4 @@ def index(request):
 
 @public
 def about(request):
-    return HttpResponse('No content')
+    return render(request, 'anon_post/about.html', {})
