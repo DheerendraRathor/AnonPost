@@ -1,5 +1,9 @@
 IS_TEST = False
 
+DEBUG = False
+
+ALLOWED_HOSTS = [*]
+
 #database settings
 DB_ENGINE = 'django.db.backends.postgresql_psycopg2'
 DB_NAME = 'anon_post'
@@ -44,4 +48,16 @@ EMAIL_USE_SSL = False
 EMAIL_DOMAIN = "@iitb.ac.in"
 
 SECRET_KEY = 'YOUR SECRET KEY'
+
+CLIENT_SECRET = 'CLIENT_SECRET'
+
+CLIENT_ID = 'CLIENT_ID'
+
+OAUTH_BASE_URL = 'http://gymkhana.iitb.ac.in/sso/'
+
+MINIMUM_SCOPES = ['basic']
+
+DEFAULT_REDIRECT_URI = ''
+
+DEFAULT_FIELDS = ['id']
 

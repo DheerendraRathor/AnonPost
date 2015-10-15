@@ -17,6 +17,15 @@ import ldap
 from django_auth_ldap.config import LDAPSearch
 import logging.config
 
+
+CLIENT_ID = config.CLIENT_ID
+CLIENT_SECRET = config.CLIENT_SECRET
+OAUTH_BASE_URL = config.OAUTH_BASE_URL
+MINIMUM_SCOPES = config.MINIMUM_SCOPES
+DEFAULT_REDIRECT_URI = config.DEFAULT_REDIRECT_URI
+DEFAULT_FIELDS = config.DEFAULT_FIELDS
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -27,9 +36,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config.DEBUG
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config.ALLOWED_HOSTS
 
 ADMIN_USERNAMES = config.ADMIN_USERNAMES
 
@@ -41,10 +50,8 @@ CACHES = {
     }
 }
 
-
 # Authentication Backends
 AUTHENTICATION_BACKENDS = (
-    'django_auth_ldap.backend.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -76,6 +83,7 @@ INSTALLED_APPS = (
     'stronghold',
     'account',
     'post',
+    'oauth',
 )
 
 MIDDLEWARE_CLASSES = (

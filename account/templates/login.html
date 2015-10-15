@@ -5,66 +5,44 @@
 {% endblock %}
 
 {% block body %}
-         <div class="container">
-            <div class="row">
-                <div class="col-md-6" style="margin-top: 20%;">
-                    <center>
-                        <h1 style="font-size: 70px;">Anon Post</h1>
-                        <h2>A hostel affairs initiative. Now you can post anonymously</h2>
-                    </center>
-                </div>
-                <div class="col-md-6 well" style="margin-top: 20%;">
-                    <center>
-                        <h2>Sign In</h2>
-                        <br>
-                    </center>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <center>
+                    <h1 style="font-size: 70px;">Anon Post</h1>
 
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name='next' value="{{ request.GET.next }}"/>
-                    <ul>
-                    {% for error in form.non_field_errors %}
-                        <li><strong>{{ error }}</strong></li>
-                    {% endfor %}
-                    {% for error in form.username.errors %}
-                        <li><strong>{{ error }}</strong></li>
-                    {% endfor %}
-                    {% for error in form.password.errors %}
-                        <li><strong>{{ error }}</strong></li>
-                    {% endfor %}
-                    {% for error in form.read_privacy_policy.errors %}
-                        <li><strong>{{ error }}</strong></li>
-                    {% endfor %}
-                    </ul>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group {% if form.username.errors or form.non_field_errors %} has-error {% endif %}">
-                                    {{ form.username }}
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group{% if form.password.errors or form.non_field_errors %} has-error {% endif %}">
-                                    {{ form.password }}
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 checkbox{% if form.read_privacy_policy.errors or form.non_field_errors %} has-error {% endif %}">
-                                <label>
-                                    {{ form.read_privacy_policy }} I've read all privacy policies
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="checkbox">
-                            <label>
-                                {{ form.remember }} Remember Me
-                            </label>
-                        </div>
-                        <center>
-                            <button type="submit" class="btn btn-default" value="Log In">Submit</button>
-                        </center>
-                    </form>
-                </div>
+                    <h2>A hostel affairs initiative. Now you can post anonymously</h2>
+                </center>
+            </div>
+            <div class="col-md-6" style="margin-top: 75px;">
+                <div style="margin-left: 35%;" id="sso-root"></div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center" style="color: red;">{{ error }}</h3>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block jsLinks %}
+    <script src="//gymkhana.iitb.ac.in/sso/static/widget/js/login.js" type="application/javascript"></script>
+    <script type="application/javascript">
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                    results = regex.exec(location.search);
+            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+        var sso_js = new SSO_JS({
+            config: {
+                client_id: 'BMHDbuT5Ef3NCfj7Cl9SRfijNxjIRbpPllwxqJV8',
+                scope: ['send_mail'],
+                state: getParameterByName('next')
+            }
+        });
+        sso_js.iframe_base_url = '//gymkhana.iitb.ac.in/sso/widget/login/?';
+        sso_js.init();
+    </script>
 {% endblock %}
