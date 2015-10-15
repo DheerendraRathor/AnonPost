@@ -12,6 +12,11 @@ from oauth.models import OAuthToken
 @public
 @require_safe
 def authorize(request):
+    if request.user.is_authenticated():
+        if request.GET.get('next') != '' and request.GET.get('next') is not None:
+            return redirect(request.GET.get('next'))
+        else:
+            return redirect(settings.LOGIN_REDIRECT_URL)
     try:
         token = Authorization(request).get_token()
     except OAuthError as e:
@@ -45,14 +50,6 @@ def authorize(request):
         return redirect(request.GET.get('state'))
     else:
         return redirect(settings.LOGIN_REDIRECT_URL)
-
-
-@public
-def login(request):
-    if request.user.is_authenticated():
-        return redirect(settings.LOGIN_REDIRECT_URL)
-
-    return render(request, 'login.html')
 
 
 @public

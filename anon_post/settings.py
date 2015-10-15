@@ -223,7 +223,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'anon_post/staticfiles/')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'anon_post/media/')
 
-LOGIN_URL = 'account:login'
+LOGIN_URL = 'account:authorize'
 
 LOGIN_REDIRECT_URL = 'home:index'
 
