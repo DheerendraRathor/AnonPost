@@ -23,6 +23,9 @@ def authorize(request):
     except OAuthError as e:
         return render(request, 'login.html', {'error': e.message, 'client_id': settings.CLIENT_ID})
 
+    if not token:
+        return render(request, 'login.html', {'client_id': settings.CLIENT_ID})
+
     user, created = User.objects.get_or_create(username=token.refresh_token)
     try:
         oauth_token = user.token
