@@ -50,6 +50,20 @@
 <div class="container">
     {% block body %}
     {% endblock %}
+
+    <div class="site-footer">
+        <div class="row text-center">
+            <div class="col-md-4 form-group">
+                &copy; {% now "Y" %} {{ request.get_host }}
+            </div>
+            <div class="col-md-4 form-group">
+                <a href="https://github.com/DheerendraRathor/AnonPost/" target="_blank">Source Code</a>
+            </div>
+            <div class="col-md-4 form-group">
+                <a href="https://github.com/DheerendraRathor/AnonPost/issues" target="_blank">Bugs || Suggestions</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
