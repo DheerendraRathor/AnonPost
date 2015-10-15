@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import settings_user as config
-import ldap
-from django_auth_ldap.config import LDAPSearch
 import logging.config
 
 
@@ -48,26 +46,6 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         'LOCATION': '127.0.0.1:11211',
     }
-}
-
-# Authentication Backends
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-)
-
-# LDAP Server URI
-# http://pythonhosted.org/django-auth-ldap/authentication.html#server-config
-AUTH_LDAP_SERVER_URI = "ldap://ldap.iitb.ac.in"
-
-AUTH_LDAP_BIND_DN = ""
-AUTH_LDAP_BIND_PASSWORD = ""
-AUTH_LDAP_USER_SEARCH = LDAPSearch("dc=iitb,dc=ac,dc=in",
-    ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
-
-AUTH_LDAP_USER_ATTR_MAP = {
-    "first_name": "givenName", 
-    "last_name": "sn",
-    "email": 'mail',
 }
 
 # Application definition
@@ -179,7 +157,7 @@ WSGI_APPLICATION = 'anon_post.wsgi.application'
 
 # if running on test-server then sqlite can be used
 # Prefer to run on postgresql 
-if config.IS_TEST:
+if config.ON_SQLITE:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

@@ -1,12 +1,14 @@
 # Anon Post
 
-This is a anonymous post management system with LDAP authentication backend. 
+This is a anonymous post management system with OAuth authentication backend. 
 
 ##Features
 * To register posts anonymously*
 * To discuss on post/issue with Administrators anonymously
 
-*Note: The anonymity is for Administrators only i.e. Administrators cannot see who have registered the post, but the user details are saved in database so that misuse can be prevented
+*Note: The anonymity is for Administrators only i.e. Administrators cannot see who have registered the post. Even though 
+we don't save any user data in our database, users can be tracked by special means by web administrators on special requests
+to prevent misuse*
 
 ##Installation
 ###OS X

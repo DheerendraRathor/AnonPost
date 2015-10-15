@@ -1,4 +1,4 @@
-IS_TEST = False
+ON_SQLITE = False
 
 DEBUG = False
 
