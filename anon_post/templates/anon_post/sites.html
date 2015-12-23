@@ -1,0 +1,35 @@
+{% extends 'anon_post/logged_in.html' %}
+
+{% block body %}
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        {% for site in sites %}
+            <div class="panel panel-default">
+                <div class="panel-heading" style="overflow: auto" data-toggle="collapse" data-parent="#accordion"
+                     href="#collapse-{{ site.id }}"
+                     aria-expanded="true" aria-controls="collapse-{{ site.id }}" id="heading-{{ site.id }}">
+                    <h3 class="panel-title pull-left"><strong>{{ site.name }}</strong></h3>
+                    <span class="pull-right">{{ site.created }}</span>
+                </div>
+                <div id="collapse-{{ site.id }}" class="panel-collapse collapse" role="tabpanel"
+                     aria-labelledby="heading-{{ site.id }}">
+                    <div class="panel-body">
+                        <p>
+                            {{ site.description|safe }}
+                        </p>
+
+                        <div class="center-block">
+                            <a class="btn btn-primary center-block" style="width: 500px;" href="{% url 'home:index' site.id %}"><strong>Open Site!</strong> I
+                                agree with all terms and conditions of this site</a>
+                        </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="alert alert-info" role="alert"><strong>NOTICE!</strong> To add new anonymous site here, please write a
+        mail to mlc@iitb.ac.in
+    </div>
+
+{% endblock %}

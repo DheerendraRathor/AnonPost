@@ -3,6 +3,13 @@
 
 {% block cssLinks %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"/>
+    {{ form.media.css }}
+{% endblock %}
+
+{% block navbar_left_link %}
+    {% if request.user in site.admins.all or site.is_demo %}
+        <li><a href="{% url 'home:admin' site.id %}">Admin</a></li>
+    {% endif %}
 {% endblock %}
 
 {% block body %}
@@ -16,8 +23,7 @@
                 </div>
                 <div class="form-group">
                     <label for="detail" class="sr-only">Message</label>
-                    <textarea style="resize: vertical" class="form-control" rows="10" id="detail" name="message"
-                              placeholder="Enter Message"></textarea>
+                    {{ form.message }}
                 </div>
                 <div class="form-group">
                     <label for="submit" class="sr-only">Submit</label>
@@ -72,10 +78,11 @@
 {% endblock %}
 
 {% block jsLinks %}
+    {{ form.media.js }}
     <script type="text/javascript">
-        var get_posts_url = "{% url 'home:get_posts' %}";
-        var add_post_url = "{% url 'home:add_post' %}";
-        var post_url = "{% url 'home:post' "0" %}";
+        var get_posts_url = "{% url 'home:get_posts' site.id %}";
+        var add_post_url = "{% url 'home:add_post' site.id %}";
+        var post_url = "{% url 'home:post' site.id "0" %}";
         post_url = post_url.replace("/0/", "/{0}/");
     </script>
     <script type="text/javascript" src="{% static 'js/home.js' %}"></script>

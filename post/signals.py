@@ -20,22 +20,10 @@ class SendMailToUserThread(threading.Thread):
         UserSendMailAPIRequest(self.subject, self.message, [], token=self.user.token).send()
 
 
-def create_email_list():
-    email_list = settings.ADMIN_USERNAMES
-    email_list = [admin + "@iitb.ac.in" for admin in email_list]
-    return list(set(email_list))
-
-
-class EmailThread(threading.Thread):
-
-    def __init__(self, subject, message, email_list):
-        super(EmailThread, self).__init__()
-        self.subject = subject
-        self.message = message
-        self.email_list = email_list
-
-    def run(self):
-        send_mail(self.subject, self.message, self.email_list)
+def create_email_list(site, user):
+    user_list = set(site.admins.all())
+    user_list.add(user)
+    return list(user_list)
 
 
 def send_post_email(sender, instance, created, **kwargs):
@@ -47,13 +35,11 @@ def send_post_email(sender, instance, created, **kwargs):
 
     Message: %s
         """
-    post_url = urlparse.urljoin(settings.BASE_URL, reverse('home:post', args=[instance.id]))
+    post_url = urlparse.urljoin(settings.BASE_URL, reverse('home:post', args=[instance.site.id, instance.id]))
     message = message % (post_url, instance.title, instance.message)
-    email_list = create_email_list()
-    email_thread = EmailThread(subject, message, email_list)
-    email_thread.start()
-    user_email_thread = SendMailToUserThread(subject, message, instance.user)
-    user_email_thread.start()
+    user_list = create_email_list(instance.site, instance.user)
+    for user in user_list:
+        SendMailToUserThread(subject, message, user).start()
 
 
 def send_reply_email(sender, instance, created, **kwargs):
@@ -64,13 +50,11 @@ def send_reply_email(sender, instance, created, **kwargs):
     Message by %s: %s
     """
     poster = "Submitter" if instance.post.user == instance.user else "Admin"
-    post_url = urlparse.urljoin(settings.BASE_URL, reverse('home:post', args=[instance.post.id]))
+    post_url = urlparse.urljoin(settings.BASE_URL, reverse('home:post', args=[instance.post.site.id, instance.post.id]))
     message = message % (post_url, poster, instance.message)
-    email_list = create_email_list()
-    email_thread = EmailThread(subject, message, email_list)
-    email_thread.start()
-    user_email_thread = SendMailToUserThread(subject, message, instance.user)
-    user_email_thread.start()
+    user_list = create_email_list(instance.post.site, instance.user)
+    for user in user_list:
+        SendMailToUserThread(subject, message, user).start()
 
 
 signals.post_save.connect(send_post_email, Post)

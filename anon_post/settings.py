@@ -58,6 +58,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'simple_history',
+    'redactor',
     'stronghold',
     'account',
     'post',
@@ -203,7 +205,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'anon_post/media/')
 
 LOGIN_URL = 'account:authorize'
 
-LOGIN_REDIRECT_URL = 'home:index'
+LOGIN_REDIRECT_URL = 'sites'
 
 
 STATICFILES_DIRS = (
@@ -257,3 +259,10 @@ MEDIA_URL = config.MEDIA_URL
 SESSION_COOKIE_PATH = config.SESSION_COOKIE_PATH
 
 CSRF_COOKIE_PATH = config.CSRF_COOKIE_PATH
+
+# Redactor Settings
+REDACTOR_UPLOAD_HANDLER = 'redactor.handlers.UUIDUploader'
+
+REDACTOR_OPTIONS = {'plugins': []}
+
+REDACTOR_AUTH_DECORATOR = 'django.contrib.auth.decorators.login_required'

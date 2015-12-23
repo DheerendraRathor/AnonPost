@@ -9,12 +9,19 @@
     <div class="row">
 
         <div class="col-lg-12">
+
+            <div style="margin-bottom: 20px;">
+                <a href="{% url 'home:index' site.id %}" class="btn btn-primary"><span
+                        class="glyphicon glyphicon-arrow-left"></span> Back to site</a>
+            </div>
+
             <div class="panel-group" id="post_list" role="tablist" aria-multiselectable="true">
 
             </div>
             <nav>
                 <ul class="pager">
-                    <li class="previous disabled" id="previous-page"><a href="#"><span aria-hidden="true">&larr;</span> Older</a></li>
+                    <li class="previous disabled" id="previous-page"><a href="#"><span aria-hidden="true">&larr;</span>
+                        Older</a></li>
                     <li class="next" id="next-page"><a href="#">Newer <span aria-hidden="true">&rarr;</span></a></li>
                 </ul>
             </nav>
@@ -55,8 +62,8 @@
 {% block jsLinks %}
     <script type="text/javascript">
         var currentOffset = 0;
-        var get_all_posts = "{% url 'home:get_all_posts_0' %}" + "{0}/";
-        var post_url = "{% url 'home:post' "0" %}".replace("/0/", "/{0}/");
+        var get_all_posts = "{% url 'home:get_all_posts' site.id 0 %}".replace("/0/", "/{0}/");
+        var post_url = "{% url 'home:post' site.id "0" %}".replace("/0/", "/{0}/");
     </script>
     <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
 {% endblock %}

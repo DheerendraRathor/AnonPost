@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from stronghold.decorators import public
 import django.contrib.auth as auth
 from django.contrib.auth.models import User
-from django.conf import settings
 from django.views.decorators.http import require_safe
 from oauth.authorization import Authorization
 from oauth.exceptions import OAuthError

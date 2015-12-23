@@ -1,13 +1,7 @@
 {% extends 'anon_post/root.html' %}
 
 {% block navbar_right_link %}
-    <li><a href=""><strong>{{ request.user.first_name }}</strong></a></li>
+    <li><a href=""><strong>{{ request.user.username }}</strong></a></li>
     <li><a href="{% url 'account:logout' %}">Logout</a></li>
 {% endblock %}
 
-
-{% block navbar_left_link %}
-    {% if request.user.username in ADMIN_USERNAMES %}
-        <li><a href="{% url 'home:admin' %}">Admin</a></li>
-    {% endif %}
-{% endblock %}
