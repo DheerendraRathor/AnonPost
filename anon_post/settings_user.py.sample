@@ -14,10 +14,6 @@ DB_PORT = '5432'
 
 SERVER_ADMINS = []
 
-#ADMINS
-# list of admin usernames
-ADMIN_USERNAMES = []
-
 # url settings
 BASE_URL = "http://example.com/"
 

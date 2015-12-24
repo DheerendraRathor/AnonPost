@@ -8,7 +8,6 @@
                      href="#collapse-{{ site.id }}"
                      aria-expanded="true" aria-controls="collapse-{{ site.id }}" id="heading-{{ site.id }}">
                     <h3 class="panel-title pull-left"><strong>{{ site.name }}</strong></h3>
-                    <span class="pull-right">{{ site.created }}</span>
                 </div>
                 <div id="collapse-{{ site.id }}" class="panel-collapse collapse" role="tabpanel"
                      aria-labelledby="heading-{{ site.id }}">
@@ -18,8 +17,11 @@
                         </p>
 
                         <div class="center-block">
-                            <a class="btn btn-primary center-block" style="width: 500px;" href="{% url 'home:index' site.id %}"><strong>Open Site!</strong> I
-                                agree with all terms and conditions of this site</a>
+                            <a class="btn btn-primary center-block" style="width: 100px;"
+                               href="{% url 'home:index' site.id %}"><strong>Open Site!</strong></a>
+                            <small class="center-block" style="width: 210px; text-align: justify; padding-top: 10px;">By
+                                opening this site, you are agreeing with all terms and conditions of this site.
+                            </small>
                         </div>
                         </p>
                     </div>

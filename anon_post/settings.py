@@ -38,8 +38,6 @@ DEBUG = config.DEBUG
 
 ALLOWED_HOSTS = config.ALLOWED_HOSTS
 
-ADMIN_USERNAMES = config.ADMIN_USERNAMES
-
 # cache location Memcached
 CACHES = {
     'default': {
