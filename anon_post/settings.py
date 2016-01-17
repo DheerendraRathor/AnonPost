@@ -141,7 +141,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.static',
-                'anon_post.context.admin_usernames',
             ],
         },
     },
